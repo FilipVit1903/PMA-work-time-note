@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "WorkTimeNote"
+rootProject.name = "Work-time-note"
 include(":app")
  

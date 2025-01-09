@@ -1,4 +1,4 @@
-package com.example.worktimenote
+package com.example.work_time_note
 
 import org.junit.Test
 
