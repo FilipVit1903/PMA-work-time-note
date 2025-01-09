@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "601473546881",
+    "project_id": "worktimechecker",
+    "storage_bucket": "worktimechecker.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601473546881:android:f93c53163bbce35b92eb80",
+        "android_client_info": {
+          "package_name": "com.example.work_time_note"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOTzWGZ6LrdiXOf5afht6a4pqKBG5Nj5Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

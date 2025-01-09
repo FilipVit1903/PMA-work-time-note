@@ -14,6 +14,7 @@
         android:text="WorkTimeChecker"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:padding="16sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -22,11 +23,11 @@
         android:id="@+id/card_total_hours"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         app:cardCornerRadius="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_app_name"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tv_app_name">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -39,9 +40,9 @@
                 android:layout_height="wrap_content"
                 android:text="Celkem hodin za „měsíc“"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@id/icon_time"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/icon_time" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/icon_time"
@@ -50,6 +51,18 @@
                 android:src="@drawable/clock_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/twSumHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Celkem hodiny"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/tv_total_hours"
+                tools:layout_editor_absoluteX="3dp"
+                tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -86,6 +99,17 @@
                 android:src="@drawable/wallet_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/twSumSallary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Celkem mzda"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_total_salary" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -94,17 +118,18 @@
         android:id="@+id/btn_add_record"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Přidat"
-        app:layout_constraintTop_toBottomOf="@id/card_total_salary"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:text="Přidat výkaz"
         app:layout_constraintEnd_toEndOf="parent"
-         />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_total_salary" />
 
     <!-- Tlačítka Výkazy a Mzda -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,12 +140,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginEnd="10sp"
             android:text="Výkazy" />
 
         <Button
             android:id="@+id/btn_view_salary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10sp"
             android:layout_weight="1"
             android:text="Mzda" />
     </LinearLayout>
@@ -128,11 +155,12 @@
     <!-- Spodní navigační lišta -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
+        style="@style/BottomNavigationViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/white"
-        app:itemIconTint="@color/nav_item_color"
+        android:layout_marginStart="8dp"
+        android:background="@color/bcg_grey"
+        app:itemIconTint="@null"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

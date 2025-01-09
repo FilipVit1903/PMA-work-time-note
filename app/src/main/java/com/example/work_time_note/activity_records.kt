@@ -1,20 +1,50 @@
 package com.example.work_time_note
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.work_time_note.databinding.ActivityRecordsBinding
+import com.google.firebase.firestore.FirebaseFirestore
 
-class activity_records : AppCompatActivity() {
+class ActivityRecords : AppCompatActivity() {
+
+    private lateinit var binding: ActivityRecordsBinding
+    private val db = FirebaseFirestore.getInstance()
+    private val records = mutableListOf<WorkRecord>()
+    private lateinit var adapter: RecordsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_records)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.records)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        // Binding
+        binding = ActivityRecordsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Nastavení RecyclerView
+        adapter = RecordsAdapter(records) { record ->
+            // Logika pro editaci
         }
+        binding.recyclerViewRecords.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewRecords.adapter = adapter
+
+        // Načtení záznamů z Firestore
+        db.collection("workRecords")
+            .get()
+            .addOnSuccessListener { result ->
+                records.clear()
+                for (document in result) {
+                    val record = WorkRecord(
+                        id = document.id,
+                        activityName = document.getString("activityName") ?: "",
+                        startTime = document.getString("startTime") ?: "",
+                        endTime = document.getString("endTime") ?: "",
+                        duration = "1:33", // Délka bude počítána později
+                        date = document.getString("date") ?: "",
+                        note = document.getString("note") ?: ""
+                    )
+                    records.add(record)
+                }
+                adapter.notifyDataSetChanged()
+            }
     }
 }

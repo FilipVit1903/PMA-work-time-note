@@ -16,10 +16,10 @@
             android:name=".activity_salary"
             android:exported="false" />
         <activity
-            android:name=".activity_records"
+            android:name=".ActivityRecords"
             android:exported="false" />
         <activity
-            android:name=".activity_add_record"
+            android:name=".ActivityAddRecord"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

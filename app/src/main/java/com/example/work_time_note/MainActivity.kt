@@ -22,13 +22,13 @@ class MainActivity : AppCompatActivity() {
 
         // Navigace na stránku "Přidat výkaz"
         binding.btnAddRecord.setOnClickListener {
-            val intent = Intent(this, activity_add_record::class.java)
+            val intent = Intent(this, ActivityAddRecord::class.java)
             startActivity(intent)
         }
 
         // Navigace na stránku "Výkazy"
         binding.btnViewRecords.setOnClickListener {
-            val intent = Intent(this, activity_records::class.java)
+            val intent = Intent(this, ActivityRecords::class.java)
             startActivity(intent)
         }
 

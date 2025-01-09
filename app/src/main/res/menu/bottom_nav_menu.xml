@@ -10,6 +10,8 @@
     <item
         android:id="@+id/nav_add_record"
         android:icon="@drawable/add_icon"
+        android:width="48dp"
+
         android:title="" />
     <item
         android:id="@+id/nav_salary"
