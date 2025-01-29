@@ -13,13 +13,16 @@
         android:theme="@style/Theme.Worktimenote"
         tools:targetApi="31">
         <activity
-            android:name=".activity_salary"
+            android:name=".ActivitySalary"
             android:exported="false" />
         <activity
             android:name=".ActivityRecords"
             android:exported="false" />
         <activity
             android:name=".ActivityAddRecord"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityEditRecord"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
