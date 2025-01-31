@@ -3,6 +3,7 @@ package com.example.work_time_note
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -61,6 +62,11 @@ class ActivityEditRecord : AppCompatActivity() {
         // Mazání záznamu
         binding.btnDeleteRecord.setOnClickListener {
             showDeleteConfirmationDialog()
+        }
+
+        binding.btnHomepage.setOnClickListener {
+            val intent = Intent(this, ActivityRecords::class.java)
+            startActivity(intent)
         }
     }
 
@@ -145,7 +151,7 @@ class ActivityEditRecord : AppCompatActivity() {
     // Funkce pro kontrolu stáří záznamu
     private fun isOlderThanThreeDays(recordDate: String): Boolean {
         val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-        val recordDateObj = sdf.parse(recordDate) ?: return true // Pokud je chyba v datu, rovnou blokujeme
+        val recordDateObj = sdf.parse(recordDate) ?: return true
 
         val threeDaysAgo = Calendar.getInstance().apply {
             add(Calendar.DAY_OF_YEAR, -3)

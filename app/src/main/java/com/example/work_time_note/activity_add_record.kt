@@ -2,6 +2,7 @@ package com.example.work_time_note
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -69,6 +70,11 @@ class ActivityAddRecord : AppCompatActivity() {
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Chyba při ukládání: ${e.message}", Toast.LENGTH_LONG).show()
                 }
+        }
+
+        binding.btnHomepage.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 

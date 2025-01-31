@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Název aplikace -->
     <TextView
         android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
@@ -18,7 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- První karta: Celkově odpracovaný čas -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_total_hours"
         android:layout_width="match_parent"
@@ -67,7 +65,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Druhá karta: Celková mzda -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_total_salary"
         android:layout_width="match_parent"
@@ -115,7 +112,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Tlačítko Přidat -->
     <Button
         android:id="@+id/btn_add_record"
         android:layout_width="0dp"
@@ -126,7 +122,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/card_total_salary" />
 
-    <!-- Tlačítka Výkazy a Mzda -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -153,25 +148,5 @@
             android:layout_weight="1"
             android:text="Mzda" />
     </LinearLayout>
-
-    <!-- Spodní navigační lišta -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        style="@style/BottomNavigationViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:background="@color/bcg_grey"
-        app:itemIconTint="@null"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="1.0"
-        app:menu="@menu/bottom_nav_menu"
-        tools:ignore="MissingConstraints" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

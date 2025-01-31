@@ -53,13 +53,13 @@ class MainActivity : AppCompatActivity() {
         calculateTotalHoursAndSalary()
     }
 
-    // ✅ Načtení hodinové sazby z SharedPreferences
+    //Načtení hodinové sazby z SharedPreferences
     private fun loadHourlyRate() {
         val sharedPref = getSharedPreferences("WorkTimePrefs", Context.MODE_PRIVATE)
         hourlyRate = sharedPref.getFloat("hourlyRate", 200.0f).toDouble() // Výchozí 200 Kč/h
     }
 
-    // ✅ Výpočet celkových hodin a mzdy za aktuální měsíc
+    //Výpočet celkových hodin a mzdy za aktuální měsíc
     private fun calculateTotalHoursAndSalary() {
         val calendar = Calendar.getInstance()
         val monthStart = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    // ✅ Převod času na počet hodin
+    //Převod času na počet hodin
     private fun calculateHours(startTime: String, endTime: String): Double {
         return try {
             val format = SimpleDateFormat("HH:mm", Locale.getDefault())

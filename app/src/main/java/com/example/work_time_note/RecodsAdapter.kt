@@ -8,7 +8,6 @@ import com.example.work_time_note.databinding.ItemRecordBinding
 class RecordsAdapter(
     private val records: List<WorkRecord>, // Seznam výkazů
     private val onEditClick: (WorkRecord) -> Unit, // Callback pro editaci
-    private val onLongClick: (WorkRecord) -> Unit // Callback pro dlouhý klik (mazání)
 ) : RecyclerView.Adapter<RecordsAdapter.RecordViewHolder>() {
 
     // ViewHolder pro položku seznamu
@@ -35,11 +34,6 @@ class RecordsAdapter(
                 onEditClick(record) // Zavolání callbacku pro editaci
             }
 
-            // Dlouhý klik na celou položku
-            root.setOnLongClickListener {
-                onLongClick(record) // Zavolání callbacku pro mazání
-                true
-            }
         }
     }
 
