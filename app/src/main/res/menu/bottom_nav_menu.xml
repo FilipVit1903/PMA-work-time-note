@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home_icon"
+        android:title="" />
+    <item
+        android:id="@+id/nav_records"
+        android:icon="@drawable/paper_icon"
+        android:title="" />
+    <item
+        android:id="@+id/nav_add_record"
+        android:icon="@drawable/add_icon"
+        android:width="48dp"
+
+        android:title="" />
+    <item
+        android:id="@+id/nav_salary"
+        android:icon="@drawable/paper_icon"
+        android:title="" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/person_icon"
+        android:title="" />
+</menu>
