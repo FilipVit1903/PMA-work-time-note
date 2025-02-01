@@ -4,94 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".ActivitySalary">
 
-    <!-- Celková mzda -->
+
     <TextView
-        android:id="@+id/tvTotalSalary"
+        android:id="@+id/tvHourlyRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Celková mzda: 0 Kč"
+        android:layout_marginTop="24dp"
+        android:text="Aktuální hodinová mzda: 200 Kč"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Hodinová sazba -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilHourlyRate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTotalSalary"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etHourlyRate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Hodinová sazba (Kč)"
-            android:inputType="numberDecimal"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Uložit hodinovou sazbu -->
     <Button
         android:id="@+id/btnSaveRate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Uložit sazbu"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tilHourlyRate"
+        android:text="Uložit sazbu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/etHourlyRate" />
 
-    <!-- Přepínací tlačítka pro graf -->
-    <LinearLayout
-        android:id="@+id/chartSwitchButtons"
+    <Button
+        android:id="@+id/btnSelectMonth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        app:layout_constraintTop_toBottomOf="@id/btnSaveRate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <Button
-            android:id="@+id/btnHours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hodiny" />
-
-        <Button
-            android:id="@+id/btnSalary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Mzda" />
-    </LinearLayout>
-
-    <!-- Vlastní BarChart -->
-    <com.example.work_time_note.customviews.CustomBarChart
-        android:id="@+id/barChart"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:layout_constraintTop_toBottomOf="@id/chartSwitchButtons"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:text="Vybrat měsíc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingClass" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTotalSalary" />
+
+    <TextView
+        android:id="@+id/tvTotalHours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="Celkem hodin: 0 h"
+        android:background="@color/bcg_grey"
+        android:paddingHorizontal="20sp"
+        android:paddingVertical="16sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSaveRate" />
+
+    <TextView
+        android:id="@+id/tvTotalSalary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@color/bcg_grey"
+        android:paddingHorizontal="20sp"
+        android:paddingVertical="16sp"
+        android:text="Celková mzda: 0 Kč"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSaveRate" />
 
     <Button
         android:id="@+id/btnHomepage"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="284dp"
         android:text="Zpět"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barChart" />
+        app:layout_constraintTop_toBottomOf="@id/tvTotalSalary" />
 
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etHourlyRate"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_marginTop="24dp"
+        android:paddingHorizontal="20sp"
+        android:background="@color/bcg_grey"
+        android:hint="Hodinová sazba (Kč)"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@+id/tvHourlyRate" />
 </androidx.constraintlayout.widget.ConstraintLayout>

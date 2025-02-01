@@ -62,21 +62,30 @@ class MainActivity : AppCompatActivity() {
     //Výpočet celkových hodin a mzdy za aktuální měsíc
     private fun calculateTotalHoursAndSalary() {
         val calendar = Calendar.getInstance()
-        val monthStart = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(
-            calendar.apply { set(Calendar.DAY_OF_MONTH, 1) }.time
-        )
+
+        // První den aktuálního měsíce
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+        val monthStart = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(calendar.time)
+
+        // Poslední den aktuálního měsíce
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
+        val monthEnd = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(calendar.time)
 
         db.collection("workRecords")
-            .whereGreaterThanOrEqualTo("date", monthStart)
             .get()
             .addOnSuccessListener { result ->
                 var totalHours = 0.0
+
                 for (document in result) {
+                    val recordDate = document.getString("date") ?: ""
                     val startTime = document.getString("startTime") ?: ""
                     val endTime = document.getString("endTime") ?: ""
 
-                    val hoursWorked = calculateHours(startTime, endTime)
-                    totalHours += hoursWorked
+                    // Ověření, zda je datum v aktuálním měsíci
+                    if (isDateInRange(recordDate, monthStart, monthEnd)) {
+                        val hoursWorked = calculateHours(startTime, endTime)
+                        totalHours += hoursWorked
+                    }
                 }
 
                 val totalSalary = totalHours * hourlyRate
@@ -88,6 +97,21 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener {
                 Toast.makeText(this, "Chyba při načítání dat", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    //Ověření, zda je datum v daném měsíci
+    private fun isDateInRange(dateStr: String, start: String, end: String): Boolean {
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        return try {
+            val date = dateFormat.parse(dateStr)
+            val startDate = dateFormat.parse(start)
+            val endDate = dateFormat.parse(end)
+
+            date != null && startDate != null && endDate != null &&
+                    (date == startDate || date == endDate || (date.after(startDate) && date.before(endDate)))
+        } catch (e: Exception) {
+            false
+        }
     }
 
     //Převod času na počet hodin

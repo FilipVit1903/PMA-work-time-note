@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -53,7 +54,31 @@ class ActivityRecords : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
     }
+
+    private fun setupFilterButtons() {
+        binding.btnToday.setOnClickListener {
+            loadRecordsForToday()
+        }
+
+        binding.btnThisWeek.setOnClickListener {
+            loadRecordsForThisWeek()
+        }
+
+        binding.btnThisMonth.setOnClickListener {
+            loadRecordsForThisMonth()
+        }
+
+        binding.btnSelectDate.setOnClickListener {
+            showDatePickerDialog()
+        }
+
+        binding.btnSelectMonth.setOnClickListener {
+            showMonthPickerDialog()
+        }
+    }
+
 
     //Metoda pro nastavení tlačítek pro filtrování
     private fun setFilterButton(button: TextView, action: () -> Unit) {
@@ -107,7 +132,6 @@ class ActivityRecords : AppCompatActivity() {
             .show()
     }
 
-
     //Filtrování dnešních záznamů
     private fun loadRecordsForToday() {
         val today = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date())
@@ -123,36 +147,66 @@ class ActivityRecords : AppCompatActivity() {
         calendar.add(Calendar.DAY_OF_WEEK, 6)
         val weekEnd = calendar.time
 
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        dateFormat.timeZone = TimeZone.getTimeZone("Europe/Prague") // Nastavení časového pásma
+
         filterRecords { record ->
-            val recordDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).parse(record.date)
-            recordDate != null && recordDate in weekStart..weekEnd
+            try {
+                val recordDate = dateFormat.parse(record.date)
+                recordDate != null && recordDate in weekStart..weekEnd
+            } catch (e: Exception) {
+                Log.e("LoadRecordsForThisWeek", "Chyba při parsování datumu: ${e.message}", e)
+                false
+            }
         }
     }
+
 
     // ✅ Filtrování výkazů za aktuální měsíc
     private fun loadRecordsForThisMonth() {
         val calendar = Calendar.getInstance()
-        val monthStart = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(
-            calendar.apply { set(Calendar.DAY_OF_MONTH, 1) }.time
-        )
+
+        // První den aktuálního měsíce
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+        val monthStart = SimpleDateFormat("MM.yyyy", Locale.getDefault()).format(calendar.time)
+
+        // Debugging
+        Log.d("LoadRecordsForThisMonth", "Filtrovaný měsíc: $monthStart")
 
         filterRecords { record ->
-            val recordDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).parse(record.date)
-            recordDate != null && record.date >= monthStart
+            try {
+                val recordMonth = record.date.substring(3) // Získáme "MM.yyyy"
+                Log.d("LoadRecordsForThisMonth", "Záznam datum: ${record.date}, extrahovaný měsíc: $recordMonth")
+                recordMonth == monthStart
+            } catch (e: Exception) {
+                Log.e("LoadRecordsForThisMonth", "Chyba při filtrování: ${e.message}", e)
+                false
+            }
         }
     }
+
+
+
+
 
     //Výběr konkrétního data
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
 
         val datePicker = DatePickerDialog(this, { _, year, month, day ->
-            val selectedDate = String.format("%02d.%02d.%d", day, month + 1, year)
+            val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+            dateFormat.timeZone = TimeZone.getTimeZone("Europe/Prague") // Nastavení časového pásma
+
+            val selectedDate = dateFormat.format(Calendar.getInstance().apply {
+                set(year, month, day)
+            }.time)
+
             filterRecords { it.date == selectedDate }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
 
         datePicker.show()
     }
+
 
     //Výběr měsíce pro filtrování
     private fun showMonthPickerDialog() {
@@ -164,45 +218,72 @@ class ActivityRecords : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Vyberte měsíc")
         builder.setItems(months) { _, which ->
-            val selectedMonth = which + 1 // Měsíce v kalendáři jsou indexovány od 0
+            val selectedMonth = String.format("%02d", which + 1) // Převede na "01", "02", atd.
             val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-            val monthStart = String.format("01.%02d.%d", selectedMonth, currentYear)
+            val selectedMonthYear = "$selectedMonth.$currentYear"
+
+            // Debugging
+            Log.d("ShowMonthPickerDialog", "Vybraný měsíc: $selectedMonthYear")
 
             filterRecords { record ->
-                record.date.endsWith(".$selectedMonth.$currentYear")
+                try {
+                    val recordMonth = record.date.substring(3) // Extrahuje "MM.yyyy"
+                    Log.d("ShowMonthPickerDialog", "Záznam datum: ${record.date}, extrahovaný měsíc: $recordMonth")
+                    recordMonth == selectedMonthYear
+                } catch (e: Exception) {
+                    Log.e("ShowMonthPickerDialog", "Chyba při filtrování: ${e.message}", e)
+                    false
+                }
             }
         }
         builder.show()
     }
 
+
+
+
     //Univerzální filtrovací metoda
     private fun filterRecords(predicate: (WorkRecord) -> Boolean) {
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        dateFormat.timeZone = TimeZone.getTimeZone("Europe/Prague") // Nastavení časového pásma
+
         db.collection("workRecords")
             .get()
             .addOnSuccessListener { result ->
                 records.clear()
                 for (document in result) {
-                    val record = WorkRecord(
-                        id = document.id,
-                        activityName = document.getString("activityName") ?: "",
-                        startTime = document.getString("startTime") ?: "",
-                        endTime = document.getString("endTime") ?: "",
-                        duration = calculateDuration(
-                            document.getString("startTime") ?: "",
-                            document.getString("endTime") ?: ""
-                        ),
-                        date = document.getString("date") ?: "",
-                        note = document.getString("note") ?: ""
-                    )
+                    try {
+                        val dateString = document.getString("date") // Načteme datum jako String
+                        if (dateString == null) {
+                            Log.e("FilterRecords", "Chyba: datum nenalezeno u záznamu ${document.id}")
+                            continue
+                        }
 
-                    if (predicate(record)) {
-                        records.add(record)
+                        val record = WorkRecord(
+                            id = document.id,
+                            activityName = document.getString("activityName") ?: "",
+                            startTime = document.getString("startTime") ?: "",
+                            endTime = document.getString("endTime") ?: "",
+                            duration = calculateDuration(
+                                document.getString("startTime") ?: "",
+                                document.getString("endTime") ?: ""
+                            ),
+                            date = dateString, // Používáme naformátované datum
+                            note = document.getString("note") ?: ""
+                        )
+
+                        if (predicate(record)) {
+                            records.add(record)
+                        }
+                    } catch (e: Exception) {
+                        Log.e("FilterRecords", "Chyba při zpracování záznamu: ${e.message}", e)
                     }
                 }
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Chyba při načítání dat: ${e.message}", Toast.LENGTH_LONG).show()
+                Log.e("FilterRecords", "Chyba při načítání dat: ${e.message}", e)
+                Toast.makeText(this, "Chyba při načítání dat.", Toast.LENGTH_LONG).show()
             }
     }
 

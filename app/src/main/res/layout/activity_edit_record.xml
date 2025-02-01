@@ -31,6 +31,7 @@
             android:id="@+id/et_activity_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/bcg_grey"
             android:hint="Název činnosti" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Začátek výkazu"
+            android:background="@color/bcg_grey"
             android:focusable="false"
             android:clickable="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -69,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Konec výkazu"
+            android:background="@color/bcg_grey"
             android:focusable="false"
             android:clickable="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -88,8 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Datum"
-            android:focusable="false"
-            android:clickable="true" />
+            android:background="@color/bcg_grey" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Poznámka -->
@@ -106,6 +108,7 @@
             android:id="@+id/et_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/bcg_grey"
             android:hint="Poznámka (volitelné)" />
     </com.google.android.material.textfield.TextInputLayout>
 
