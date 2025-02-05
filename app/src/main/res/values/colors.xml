@@ -12,7 +12,7 @@
     <color name="grey">#9FAAB1</color>
     <color name="bcg_grey">#F4F5F5</color>
     <color name="nav_bcg">#FFFFFF</color>
+    <color name="btn_back_bcg">#FF8A00</color>
     <color name="nav_active">#6200EE</color>
     <color name="nav_inactive">#8E8E8E</color>
-    <color name="nav_item_color">#D0D0D0</color>
 </resources>

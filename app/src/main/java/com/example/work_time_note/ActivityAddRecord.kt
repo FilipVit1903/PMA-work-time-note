@@ -14,7 +14,7 @@ import java.util.*
 class ActivityAddRecord : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddRecordBinding
-    private val db = FirebaseFirestore.getInstance() // Inicializace Firestore
+    private val db = FirebaseFirestore.getInstance()
 
     private var selectedDate = ""
     private var startTime = ""
@@ -89,7 +89,6 @@ class ActivityAddRecord : AppCompatActivity() {
             set(Calendar.MILLISECOND, 0)
         }
 
-        // Nastavíme datum 3 dny zpět na půlnoc, jinak bychom si nemohli vykázat aktuální den
         val threeDaysAgo = Calendar.getInstance().apply {
             add(Calendar.DAY_OF_YEAR, -3)
             set(Calendar.HOUR_OF_DAY, 0)
@@ -127,8 +126,6 @@ class ActivityAddRecord : AppCompatActivity() {
         datePicker.datePicker.maxDate = today.timeInMillis // Dnešní den je povolen
         datePicker.show()
     }
-
-
 
     //Funkce pro zobrazení TimePicker
     private fun showTimePickerDialog(editText: com.google.android.material.textfield.TextInputEditText) {

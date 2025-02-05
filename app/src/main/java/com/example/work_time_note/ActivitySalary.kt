@@ -62,7 +62,7 @@ class ActivitySalary : AppCompatActivity() {
     // Načtení hodinové sazby z SharedPreferences
     private fun loadHourlyRate() {
         val sharedPref = getSharedPreferences("WorkTimePrefs", MODE_PRIVATE)
-        hourlyRate = sharedPref.getFloat("hourlyRate", 200.0f).toDouble() // Výchozí hodnota: 200 Kč/h
+        hourlyRate = sharedPref.getFloat("hourlyRate", 200.0f).toDouble()
     }
 
     // Výběr měsíce přes AlertDialog
@@ -75,7 +75,7 @@ class ActivitySalary : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Vyberte měsíc")
         builder.setItems(months) { _, which ->
-            val selectedMonth = which + 1 // Měsíce jsou indexovány od 1
+            val selectedMonth = which + 1
             val selectedYear = Calendar.getInstance().get(Calendar.YEAR)
             calculateTotalHoursAndSalaryForMonth(selectedMonth, selectedYear)
         }
@@ -112,7 +112,6 @@ class ActivitySalary : AppCompatActivity() {
                 // Výpočet celkové mzdy
                 val totalSalary = totalHours * hourlyRate
 
-                // Aktualizace UI
                 binding.tvTotalHours.text = String.format("Celkem hodin: %.1f h", totalHours)
                 binding.tvTotalSalary.text = String.format("Celková mzda: %.2f Kč", totalSalary)
             }
@@ -130,7 +129,7 @@ class ActivitySalary : AppCompatActivity() {
 
             if (start != null && end != null) {
                 val diff = end.time - start.time
-                diff / (1000.0 * 60.0 * 60.0) // Převod na hodiny
+                diff / (1000.0 * 60.0 * 60.0) // Převod na hodiny :)))
             } else {
                 0.0
             }

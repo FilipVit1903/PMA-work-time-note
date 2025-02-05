@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Nadpis -->
     <TextView
         android:id="@+id/tv_edit_record_title"
         android:layout_width="wrap_content"
@@ -17,7 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Název činnosti -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_activity_name"
         android:layout_width="match_parent"
@@ -35,7 +33,6 @@
             android:hint="Název činnosti" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Čas začátku -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_start_time"
         android:layout_width="0dp"
@@ -55,7 +52,6 @@
             android:clickable="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Čas konce -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_end_time"
         android:layout_width="0dp"
@@ -76,7 +72,6 @@
             android:clickable="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Datum -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_date"
         android:layout_width="match_parent"
@@ -94,7 +89,6 @@
             android:background="@color/bcg_grey" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Poznámka -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_note"
         android:layout_width="match_parent"
@@ -112,18 +106,18 @@
             android:hint="Poznámka (volitelné)" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Tlačítko pro uložení změn -->
     <Button
         android:id="@+id/btn_save_changes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/green"
         android:text="Uložit změny"
-        app:layout_constraintTop_toBottomOf="@id/til_note"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_note"
+        app:rippleColor="@color/green" />
 
-    <!-- Tlačítko pro smazání výkazu -->
     <Button
         android:id="@+id/btnDeleteRecord"
         android:layout_width="match_parent"
@@ -141,6 +135,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="176dp"
+        android:backgroundTint="@color/btn_back_bcg"
+        android:backgroundTintMode="add"
         android:text="Zpět"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

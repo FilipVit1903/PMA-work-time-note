@@ -7,7 +7,6 @@
     android:layout_marginBottom="10sp"
     android:background="@color/bcg_grey">
 
-    <!-- Název činnosti -->
     <TextView
         android:id="@+id/tv_activity_name"
         android:layout_width="0dp"
@@ -18,9 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_duration" />
 
-    <!-- Trvání -->
-
-    <!-- Datum -->
     <TextView
         android:id="@+id/tv_duration"
         android:layout_width="wrap_content"
@@ -41,7 +37,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_time_range" />
 
-    <!-- Tlačítko upravit -->
     <TextView
         android:id="@+id/tv_time_range"
         android:layout_width="wrap_content"

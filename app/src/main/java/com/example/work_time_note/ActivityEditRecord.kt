@@ -23,7 +23,6 @@ class ActivityEditRecord : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // SPRÁVNÝ binding soubor
         binding = ActivityEditRecordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -64,12 +63,14 @@ class ActivityEditRecord : AppCompatActivity() {
             showDeleteConfirmationDialog()
         }
 
+        // Zpět na homepage
         binding.btnHomepage.setOnClickListener {
             val intent = Intent(this, ActivityRecords::class.java)
             startActivity(intent)
         }
     }
 
+    // Aktualizace záznamu
     private fun updateRecord() {
         val updatedActivityName = binding.etActivityName.text.toString()
         val updatedStartTime = binding.etStartTime.text.toString()
@@ -103,6 +104,7 @@ class ActivityEditRecord : AppCompatActivity() {
         }
     }
 
+    // Zobrazení dialogu pro potvrzení mazání
     private fun showDeleteConfirmationDialog() {
         AlertDialog.Builder(this)
             .setTitle("Smazat záznam")
@@ -114,6 +116,7 @@ class ActivityEditRecord : AppCompatActivity() {
             .show()
     }
 
+    // Mazání záznamu
     private fun deleteRecord() {
         recordId?.let { id ->
             db.collection("workRecords").document(id)

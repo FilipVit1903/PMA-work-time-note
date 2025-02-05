@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
-        <!-- Tlačítka pro filtrování -->
         <TextView
             android:id="@+id/btn_today"
             android:layout_width="wrap_content"
@@ -76,8 +75,6 @@
             android:textSize="14sp" />
     </com.google.android.flexbox.FlexboxLayout>
 
-
-    <!-- RecyclerView pro výkazy -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRecords"
         android:layout_width="match_parent"
@@ -93,6 +90,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="536dp"
+        android:backgroundTint="@color/btn_back_bcg"
         android:text="Zpět"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

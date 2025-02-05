@@ -10,7 +10,7 @@
         android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WorkTimeChecker"
+        android:text="WorkTimeNote"
         android:textSize="20sp"
         android:textStyle="bold"
         android:padding="16sp"
@@ -119,6 +119,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@color/green"
         android:text="Přidat výkaz"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,8 +139,9 @@
             android:id="@+id/btn_view_records"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginEnd="10sp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/green"
             android:text="Výkazy" />
 
         <Button
@@ -148,6 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10sp"
             android:layout_weight="1"
+            android:backgroundTint="@color/green"
             android:text="Mzda" />
     </LinearLayout>
 
