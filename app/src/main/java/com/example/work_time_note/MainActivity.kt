@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
 
             if (start != null && end != null) {
                 val diff = end.time - start.time
-                diff / (1000.0 * 60.0 * 60.0) // Převod na hodiny
+                diff / (1000.0 * 60.0 * 60.0)
             } else {
                 0.0
             }

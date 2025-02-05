@@ -8,20 +8,17 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material3.Tab
-import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.work_time_note.databinding.ActivityRecordsBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
-import com.google.android.material.tabs.TabLayout
 import java.util.*
 
 class ActivityRecords : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecordsBinding
     private val db = FirebaseFirestore.getInstance()
-    private val records = mutableListOf<WorkRecord>() // ✅ Opravená inicializace records
+    private val records = mutableListOf<WorkRecord>()
     private lateinit var adapter: RecordsAdapter
     private var activeButton: TextView? = null
 
@@ -57,29 +54,6 @@ class ActivityRecords : AppCompatActivity() {
 
     }
 
-    private fun setupFilterButtons() {
-        binding.btnToday.setOnClickListener {
-            loadRecordsForToday()
-        }
-
-        binding.btnThisWeek.setOnClickListener {
-            loadRecordsForThisWeek()
-        }
-
-        binding.btnThisMonth.setOnClickListener {
-            loadRecordsForThisMonth()
-        }
-
-        binding.btnSelectDate.setOnClickListener {
-            showDatePickerDialog()
-        }
-
-        binding.btnSelectMonth.setOnClickListener {
-            showMonthPickerDialog()
-        }
-    }
-
-
     //Metoda pro nastavení tlačítek pro filtrování
     private fun setFilterButton(button: TextView, action: () -> Unit) {
         button.setOnClickListener {
@@ -94,7 +68,6 @@ class ActivityRecords : AppCompatActivity() {
             button.setTextColor(resources.getColor(R.color.white, theme)) // Aktivní text na bílou
             activeButton = button
 
-            // Spuštění akce
             action()
         }
     }
@@ -110,26 +83,6 @@ class ActivityRecords : AppCompatActivity() {
             putExtra("note", record.note)
         }
         startActivity(intent)
-    }
-
-    //Metoda pro zobrazení dialogu pro smazání záznamu
-    private fun showDeleteConfirmationDialog(record: WorkRecord) {
-        AlertDialog.Builder(this)
-            .setTitle("Smazat záznam")
-            .setMessage("Opravdu chcete tento záznam smazat?")
-            .setPositiveButton("Ano") { _, _ ->
-                db.collection("workRecords").document(record.id)
-                    .delete()
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Záznam smazán.", Toast.LENGTH_SHORT).show()
-                        loadRecordsForToday() // Znovu načte dnešní data
-                    }
-                    .addOnFailureListener { e ->
-                        Toast.makeText(this, "Chyba při mazání: ${e.message}", Toast.LENGTH_SHORT).show()
-                    }
-            }
-            .setNegativeButton("Ne", null)
-            .show()
     }
 
     //Filtrování dnešních záznamů
@@ -161,8 +114,7 @@ class ActivityRecords : AppCompatActivity() {
         }
     }
 
-
-    // ✅ Filtrování výkazů za aktuální měsíc
+    //Filtrování výkazů za aktuální měsíc
     private fun loadRecordsForThisMonth() {
         val calendar = Calendar.getInstance()
 
@@ -185,10 +137,6 @@ class ActivityRecords : AppCompatActivity() {
         }
     }
 
-
-
-
-
     //Výběr konkrétního data
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
@@ -206,7 +154,6 @@ class ActivityRecords : AppCompatActivity() {
 
         datePicker.show()
     }
-
 
     //Výběr měsíce pro filtrování
     private fun showMonthPickerDialog() {
@@ -238,9 +185,6 @@ class ActivityRecords : AppCompatActivity() {
         }
         builder.show()
     }
-
-
-
 
     //Univerzální filtrovací metoda
     private fun filterRecords(predicate: (WorkRecord) -> Boolean) {
